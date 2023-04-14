@@ -1,25 +1,32 @@
-DELETE DATABASE IF EXISTS employee-tracker_db;
+DELETE DATABASE IF EXISTS employee_tracker_db;
 
-CREATE DATABASE employee-tracker_db;
+CREATE DATABASE employee_tracker_db;
 
-USE employee-tracker_db;
+USE employee_tracker_db;
 
-CREATE TABLE department (
-id INT PRIMARY KEY,
-name VARCHAR(50) NOT NULL
+CREATE TABLE departments (
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+department VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE role (
-id INT PRIMARY KEY,
+CREATE TABLE roles (
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 title VARCHAR(50) NOT NULL,
-salary DECIMAL,
-FOREIGN KEY (department_db)
-REFERENCES department(id)
+salary INT NOT NULL,
+department_id INT NOT NULL,
+FOREIGN KEY (department_id)
+REFERENCES departments(id)
 );
 
-CREATE TABLE employee (
-id  INT PRIMARY KEY,
+CREATE TABLE employees ( 
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 first_name VARCHAR(50) NOT NULL,
 last_name VARCHAR(50) NOT NULL,
-role_id int
+title VARCHAR(50) NOT NULL,
+department_id INT NOT NULL,
+FOREIGN KEY (department_id)
+REFERENCES departments(id)
+role_id INT NOT NULL,
+FOREIGN KEY (role_id)
+REFERENCES roles(id)
 );

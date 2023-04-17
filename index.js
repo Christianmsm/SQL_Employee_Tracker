@@ -2,6 +2,7 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
 
+
 const questions = 
     {
         type: 'list',
@@ -20,7 +21,7 @@ const questions =
     }
 
     //Function to initialize the app after the user answers the question
-function mainQuestion(questions) {
+function mainQuestion() {
     inquirer.prompt(questions)
         .then(answer => {
             console.log(answer)
@@ -89,3 +90,5 @@ function init() {
 }
 
 init();
+
+module.exports = {mainQuestion}

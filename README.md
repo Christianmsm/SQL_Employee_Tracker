@@ -17,13 +17,17 @@ This is an application that connects a database of employees at your organizatio
 More to come in future versions.
 
 ## Usage
+Download the code from the GitHub repository, then run 'node index' to start the application and answer the inquirer questions.
 
 ## Technologies
 Node.js, MYSQL, JavaScript
+
 ## Installation
-Install Node.js & MYSQL2
+Install Node.js & run 'npm  install' for all of the packages needed.
+
 ## Contribution
 Currently there are no contributions being taken.
+
 ## Resources
 Deployed Application:
 

@@ -36,22 +36,34 @@ connection.query('SELECT * FROM employees', (err, res) => {
 })
  }
 
- const addDepartment = function() {
-connection.query(`INSERT INTO departments department SET ?;`, department)
+ const addDepartmentQuery = function() {
+connection.query(`INSERT INTO departments department SET (?);`, department)
 console.log('department added');
  }
 
- const addRole = function() {
-    const query = 'INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?)';
-    const param = [answers.rol]
-connection.query(query, )
+ const addRoleQuery = function(answers) {
+    const query = 'INSERT INTO roles (title, salary) VALUES (?, ?, ?)';
+    const param = [answers.roleName, answers.salary, answers.department];
+connection.query(query, param, (err, res) => {
+    if (err) {
+        console.log(err)
+    } 
+    console.log('New role added ', res)
+})
  }
 
- const addEmployee = function() {
-
+ const addEmployeeQuery = function(answers) {
+const query = 'INSERT INTO employees (first_name, last_name, role_id, department_id) VALUES (?, ?, ?)';
+const param = [answers.newEmployeeFirstName, answers.newEmployeeLastName, answers.employeeRole];
+connection.query(query, param, (err, res) => {
+    if (err) {
+        console.log(err)
+    }
+    console.log('New employee added ', res)
+})
  }
 
-const updateEmployee = function(answers) {
+const updateEmployeeQuery = function(answers) {
 const query = 'UPDATE employees SET role_id = (?) WHERE employees.first_name = ';
 const param = [answers.employee];
 connection.query(query, param, (err, res) => {
@@ -62,4 +74,4 @@ connection.query(query, param, (err, res) => {
 });
 }
 
-module.exports = {departmentQuery, rolesQuery, employeesQuery, addDepartment, addRole, addEmployee, updateEmployee}
+module.exports = {departmentQuery, rolesQuery, employeesQuery, addDepartmentQuery, addRoleQuery, addEmployeeQuery, updateEmployeeQuery}

@@ -1,7 +1,7 @@
 //Imports modules needed for the application
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
-const { departmentQuery, rolesQuery, employeesQuery } = require('./db/queries');
+const { departmentQuery, rolesQuery, employeesQuery, addEmployeeQuery, addDepartmentQuery, addRoleQuery, updateEmployeeQuery } = require('./db/queries');
 
 
 const questions = 
@@ -45,7 +45,7 @@ function mainQuestion() {
                     viewAllRoles();
                     break;
                 case 'Add Role':
-                    console.log('add a role')
+                    console.log('role has been added')
                     addRole();
                     break;
                 case 'View All Departments':
@@ -53,7 +53,7 @@ function mainQuestion() {
                     viewAllDepartments();
                     break;
                 case 'Add Department':
-                    console.log('add depatment')
+                    console.log('depatment has been added')
                     addDepartment();
                     break;
                 case 'Quit':
@@ -72,17 +72,29 @@ function viewAllEmployees() {
 }
 
 function addEmployee() {
-inquirer.prompt(
+inquirer.prompt([
     {
     type: 'input',
     message: 'What is the first name of the new employee?',
-    name: 'newEmployeeName',
+    name: 'newEmployeeFirstName',
     validate: (value) => {
         if (value) {
             return true
         }
         else {
             return 'Please enter the first name of the employee.'
+        }},
+},
+{
+    type: 'input',
+    message: 'What is the last name of the new employee?',
+    name: 'newEmployeeLastName',
+    validate: (value) => {
+        if (value) {
+            return true
+        }
+        else {
+            return 'Please enter the last name of the employee.'
         }},
 },
 {
@@ -105,8 +117,8 @@ inquirer.prompt(
         }
     }
 },
-) .then((answer) => {
-    addEmployee();
+]) .then((answers) => {
+    addEmployeeQuery(answers);
 })
 }
 
@@ -145,7 +157,7 @@ inquirer.prompt([
             } else { return 'Please pick a role from the list.'}},
     },
 ]).then(() => {
-    updateEmployeeRole(answers);
+    updateEmployeeQuery();
     mainQuestion();
 })
 }
@@ -186,7 +198,7 @@ inquirer.prompt([
     },
 ]
 ).then((answers) => {
-    addRole(answers);
+    addRoleQuery(answers);
     mainQuestion();
 })
 }
@@ -209,8 +221,8 @@ function addDepartment() {
             }
         },
     })
-        .then((answer) => {
-            addDepartment(answer);
+        .then((answers) => {
+            addDepartmentQuery(answers);
             mainQuestion();
         })
 }

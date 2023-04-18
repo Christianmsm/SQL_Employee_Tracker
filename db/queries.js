@@ -1,48 +1,50 @@
-const {mainQuestion} = require('../index.js');
+
 const mysql = require('mysql2');
 
 const connection = mysql.createConnection({
-    host: 'localhost',
+    host: '127.0.0.1',
     user: 'root',
     password: 'for sql',
     database: 'employee_tracker_db'
 },
-console.log(`Connection to ${database} database successful.`)
+console.log(`Connection to database successful.`)
 );
 connection.connect();
 
-// SELECT * FROM departments 
 
-// INSERT INTO employees
-
-// UPDATE employees SET role_id WHERE employees.first_name = '';
-
-
-const departmentQuery = function() {
+const departmentQuery = function(mainQuestion) {
     connection.query('SELECT * FROM departments;', (err, res) => {
-        console.log(res);
+        console.table(res);
+        console.log("\n")
+        return mainQuestion()
     });
 }
 
- const rolesQuery = function() {
-connection.query('SELECT * FORM roles;', (err, res) => {
-    console.log(res);
+ const rolesQuery = function(mainQuestion) {
+connection.query('SELECT * FROM roles;', (err, res) => {
+    console.table(res);
+    console.log("\n")
+    return mainQuestion()
 });
  }
 
- const employeesQuery = function() {
-connection.query('SELECT employees.id, employees.first_name, employees.last_name, roles.title, roles.salary, departments.department FROM ', (err, res) => {
-    console.log(res);
+ const employeesQuery = function(mainQuestion) {
+connection.query('SELECT * FROM employees', (err, res) => {
+    console.table(res);
+    console.log("\n")
+    return mainQuestion()
 })
  }
 
  const addDepartment = function() {
-connection.query('INSERT INTO departments SET ?;')
+connection.query(`INSERT INTO departments department SET ?;`, department)
 console.log('department added');
  }
 
  const addRole = function() {
-
+    const query = 'INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?)';
+    const param = [answers.rol]
+connection.query(query, )
  }
 
  const addEmployee = function() {
